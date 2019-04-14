@@ -13,6 +13,7 @@ import com.brunopego.domain.Cidade;
 import com.brunopego.domain.Cliente;
 import com.brunopego.domain.Endereco;
 import com.brunopego.domain.Estado;
+import com.brunopego.domain.ItemPedido;
 import com.brunopego.domain.Pagamento;
 import com.brunopego.domain.PagamentoComBoleto;
 import com.brunopego.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.brunopego.repositories.CidadeRepository;
 import com.brunopego.repositories.ClienteRepository;
 import com.brunopego.repositories.EnderecoRepository;
 import com.brunopego.repositories.EstadoRepository;
+import com.brunopego.repositories.ItemPedidoRepository;
 import com.brunopego.repositories.PagamentoRepository;
 import com.brunopego.repositories.PedidoRepository;
 import com.brunopego.repositories.ProdutoRepository;
@@ -48,6 +50,8 @@ public class BackendApplication implements CommandLineRunner {
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
@@ -114,6 +118,19 @@ public class BackendApplication implements CommandLineRunner {
 
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped1.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 
 	}
 
