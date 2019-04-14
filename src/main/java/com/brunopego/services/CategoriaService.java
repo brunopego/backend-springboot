@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.brunopego.domain.Categoria;
+import com.brunopego.dto.CategoriaDTO;
 import com.brunopego.repositories.CategoriaRepository;
 import com.brunopego.services.exceptions.DataIntegrityException;
 import com.brunopego.services.exceptions.ObjectNotFoundException;
@@ -54,6 +55,10 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+	
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 
 }
