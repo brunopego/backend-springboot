@@ -5,21 +5,21 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.brunopego.domain.Categoria;
-import com.brunopego.repositories.CategoriaRepository;
+import com.brunopego.domain.Pedido;
+import com.brunopego.repositories.PedidoRepository;
 import com.brunopego.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class CategoriaService {
+public class PedidoService {
 	
 	@Autowired
-	private CategoriaRepository repo;
+	private PedidoRepository repo;
 	
-	public Categoria find(Integer id) {
-		Optional<Categoria> obj = repo.findById(id);
+	public Pedido find(Integer id) {
+		Optional<Pedido> obj = repo.findById(id);
 		return obj.orElseThrow(() -> 
 		new ObjectNotFoundException
-		("Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
+		("Objeto não encontrado! Id: " + id + ", Tipo: " + Pedido.class.getName()));
 	}
 
 }
